@@ -2,6 +2,8 @@ package real.telegramer.message.service;
 
 import org.springframework.stereotype.Component;
 import real.telegramer.message.dictionary.Commands;
+import real.telegramer.message.dictionary.buttons.menu.MainMenu;
+import real.telegramer.message.dictionary.buttons.menu.OrderMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,5 +39,16 @@ public class BackService {
         } else {
             previousCommands.add(currentMessage);
         }
+    }
+
+    public String getInformationAboutSection() {
+        for (int i = previousCommands.size() - 1; i >= 0; i--) {
+            if (previousCommands.get(i).equals(OrderMenu.ORDER.getText())) {
+                return previousCommands.get(i - 1);
+            }
+        }
+        var communicate = previousCommands.stream().filter(c ->
+                c.equals(MainMenu.SEND_LETTER.getText())).findFirst();
+        return communicate.orElse("");
     }
 }

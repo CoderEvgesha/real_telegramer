@@ -3,6 +3,7 @@ package real.telegramer.message.fabric.text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.User;
 import real.telegramer.message.dictionary.Text;
 import real.telegramer.message.dictionary.buttons.Url;
 import real.telegramer.message.fabric.buttons.InterfaceFabric;
@@ -86,5 +87,27 @@ public class TextFabric {
 
     public SendMessage createAnswerForOrderText(Long chatId) {
         return textMessage.createTextMessage(chatId, Text.ORDER_ANSWER.getText());
+    }
+
+    public SendMessage createNotificationForAdmin(Long chatId, User user, String text, String section) {
+        String fullMessage;
+        String username = user.getUserName();
+        if (username == null || username.isBlank()) {
+            fullMessage = String.format(Text.NOTIFICATION_ANONYMOUS.getText(), section, text);
+        } else {
+            fullMessage = String.format(Text.NOTIFICATION.getText(), username, section, text);
+        }
+        return textMessage.createTextMessageWithoutMarkdown(chatId, fullMessage);
+    }
+
+    public SendMessage createNotificationForAdmin(Long chatId, User user, String text) {
+        String fullMessage;
+        String username = user.getUserName();
+        if (username == null || username.isBlank()) {
+            fullMessage = String.format(Text.UNKNOWN_ANONYMOUS_NOTIFICATION.getText(), text);
+        } else {
+            fullMessage = String.format(Text.UNKNOWN_NOTIFICATION.getText(), username, text);
+        }
+        return textMessage.createTextMessageWithoutMarkdown(chatId, fullMessage);
     }
 }

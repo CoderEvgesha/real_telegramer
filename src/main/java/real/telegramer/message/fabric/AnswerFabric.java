@@ -2,14 +2,14 @@ package real.telegramer.message.fabric;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendVideo;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.User;
 import real.telegramer.message.dictionary.Commands;
 import real.telegramer.message.dictionary.buttons.menu.*;
-import real.telegramer.message.fabric.document.DocumentFabric;
 import real.telegramer.message.fabric.photo.PhotoFabric;
 import real.telegramer.message.fabric.text.TextFabric;
 import real.telegramer.message.fabric.video.VideoFabric;
+import real.telegramer.message.service.AdminService;
 import real.telegramer.message.service.BackService;
 import real.telegramer.message.service.OrderService;
 
@@ -24,17 +24,35 @@ public class AnswerFabric {
     private final VideoFabric videoFabric;
     private final BackService backService;
     private final OrderService orderService;
+    private final AdminService adminService;
 
     public AnswerFabric(@Autowired PhotoFabric photoFabric,
                         @Autowired TextFabric textFabric,
                         @Autowired VideoFabric videoFabric,
                         @Autowired BackService backService,
-                        @Autowired OrderService orderService) {
+                        @Autowired OrderService orderService,
+                        @Autowired AdminService adminService) {
         this.photoFabric = photoFabric;
         this.textFabric = textFabric;
         this.videoFabric = videoFabric;
         this.backService = backService;
         this.orderService = orderService;
+        this.adminService = adminService;
+    }
+
+    public Object createAnswer(Message message) {
+        if (!adminService.process(message)) return null;
+        var chatId = message.getChatId();
+        var text = message.getText();
+        var from = message.getFrom();
+        if (orderService.isOrder()) {
+            return createAnswerForOrderText(text, chatId, from);
+        }
+        var answer = createAnswer(text, chatId);
+        if (answer == null) {
+            return createAnswerForUnknownText(text, chatId, from);
+        }
+        return answer;
     }
 
     public Object createAnswer(String text, Long chatId) {
@@ -85,6 +103,7 @@ public class AnswerFabric {
         }
         var hardMenu = HardMenu.fromValue(text);
         if (hardMenu.isPresent()) {
+            orderService.setOrder();
             backService.manageTransition(text);
             return createAnswerForHardMenu(hardMenu.get(), chatId);
         }
@@ -92,22 +111,34 @@ public class AnswerFabric {
         if (backMenu.isPresent()) {
             return createAnswer(backService.manageBack(), chatId);
         }
-        if (orderService.isOrder()) {
-            orderService.processOrder(text, chatId);
-            return createAnswerForOrderText(chatId);
-        }
-        return createAnswerForUnknownText(chatId);
+        return null;
     }
 
-    private List<Object> createAnswerForOrderText(Long chatId) {
+    private Object createMessageForNotification(User from, String text) {
+        String section = backService.getInformationAboutSection();
+        Long idAdminChat = adminService.getChatId();
+        return textFabric.createNotificationForAdmin(idAdminChat, from, text, section);
+    }
+
+    private Object createMessageForUnknownNotification(User from, String text) {
+        Long idAdminChat = adminService.getChatId();
+        return textFabric.createNotificationForAdmin(idAdminChat, from, text);
+    }
+
+    private List<Object> createAnswerForOrderText(String text, Long chatId, User from) {
         List list = new ArrayList();
+        list.add(createMessageForNotification(from, text));
         list.add(textFabric.createAnswerForOrderText(chatId));
         list.add(createAnswer(Commands.START.getText(), chatId));
+        orderService.sendOrder();
         return list;
     }
 
-    private Object createAnswerForUnknownText(Long chatId) {
-        return textFabric.createAnswerForUnknownText(chatId);
+    private Object createAnswerForUnknownText(String text, Long chatId, User from) {
+        List list = new ArrayList();
+        list.add(createMessageForUnknownNotification(from, text));
+        list.add(textFabric.createAnswerForUnknownText(chatId));
+        return list;
     }
 
     private Object createAnswerForHardMenu(HardMenu hardMenu, Long chatId) {

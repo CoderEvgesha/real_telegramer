@@ -14,7 +14,7 @@ public class OrderService {
         isOrder = true;
     }
 
-    public void processOrder(String text, Long chatId) {
-
+    public void sendOrder() {
+        isOrder = false;
     }
 }

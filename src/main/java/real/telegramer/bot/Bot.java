@@ -40,11 +40,13 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         var msg = update.getMessage();
-        var chatId = msg.getChatId();
-        var text = msg.getText();
-        if (text != null) {
-            var answer = answerFabric.createAnswer(text, chatId);
-            sendMessage(answer);
+        if (msg != null) {
+            if (msg.getText() != null) {
+                var answer = answerFabric.createAnswer(msg);
+                if (answer != null) {
+                    sendMessage(answer);
+                }
+            }
         }
     }
 
