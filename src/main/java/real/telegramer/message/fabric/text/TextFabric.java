@@ -83,4 +83,8 @@ public class TextFabric {
         return textMessage.createTextMessage(chatId, Text.DESIGN.getText(),
                 InterfaceFabric.getButtonsForServicesOrderMenu());
     }
+
+    public SendMessage createAnswerForOrderText(Long chatId) {
+        return textMessage.createTextMessage(chatId, Text.ORDER_ANSWER.getText());
+    }
 }

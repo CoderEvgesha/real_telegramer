@@ -2,7 +2,6 @@ package real.telegramer.message.service;
 
 import org.springframework.stereotype.Component;
 import real.telegramer.message.dictionary.Commands;
-import real.telegramer.message.dictionary.buttons.menu.BackMenu;
 
 import java.util.ArrayList;
 import java.util.List;

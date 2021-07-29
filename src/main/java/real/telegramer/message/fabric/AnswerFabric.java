@@ -11,6 +11,7 @@ import real.telegramer.message.fabric.photo.PhotoFabric;
 import real.telegramer.message.fabric.text.TextFabric;
 import real.telegramer.message.fabric.video.VideoFabric;
 import real.telegramer.message.service.BackService;
+import real.telegramer.message.service.OrderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +22,19 @@ public class AnswerFabric {
     private final TextFabric textFabric;
     private final PhotoFabric photoFabric;
     private final VideoFabric videoFabric;
-    private final DocumentFabric documentFabric;
     private final BackService backService;
+    private final OrderService orderService;
 
     public AnswerFabric(@Autowired PhotoFabric photoFabric,
                         @Autowired TextFabric textFabric,
                         @Autowired VideoFabric videoFabric,
-                        @Autowired DocumentFabric documentFabric,
-                        @Autowired BackService backService) {
+                        @Autowired BackService backService,
+                        @Autowired OrderService orderService) {
         this.photoFabric = photoFabric;
         this.textFabric = textFabric;
         this.videoFabric = videoFabric;
-        this.documentFabric = documentFabric;
         this.backService = backService;
+        this.orderService = orderService;
     }
 
     public Object createAnswer(String text, Long chatId) {
@@ -67,8 +68,12 @@ public class AnswerFabric {
         }
         var orderCommunicationMenu = OrderCommunicationMenu.fromValue(text);
         if (orderCommunicationMenu.isPresent()) {
+            var orderCommand = orderCommunicationMenu.get();
+            if (orderCommand == OrderCommunicationMenu.CALL_ME) {
+                orderService.setOrder();
+            }
             backService.manageTransition(text);
-            return createAnswerForOrderCommunicationMenu(orderCommunicationMenu.get(), chatId);
+            return createAnswerForOrderCommunicationMenu(orderCommand, chatId);
         }
         var writeMenu = WriteMenu.fromValue(text);
         if (writeMenu.isPresent()) {
@@ -87,7 +92,18 @@ public class AnswerFabric {
         if (backMenu.isPresent()) {
             return createAnswer(backService.manageBack(), chatId);
         }
+        if (orderService.isOrder()) {
+            orderService.processOrder(text, chatId);
+            return createAnswerForOrderText(chatId);
+        }
         return createAnswerForUnknownText(chatId);
+    }
+
+    private List<Object> createAnswerForOrderText(Long chatId) {
+        List list = new ArrayList();
+        list.add(textFabric.createAnswerForOrderText(chatId));
+        list.add(createAnswer(Commands.START.getText(), chatId));
+        return list;
     }
 
     private Object createAnswerForUnknownText(Long chatId) {
