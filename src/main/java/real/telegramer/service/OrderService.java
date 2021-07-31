@@ -1,4 +1,4 @@
-package real.telegramer.message.service;
+package real.telegramer.service;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;

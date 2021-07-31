@@ -9,8 +9,8 @@ import real.telegramer.message.dictionary.buttons.menu.*;
 import real.telegramer.message.fabric.photo.PhotoFabric;
 import real.telegramer.message.fabric.text.TextFabric;
 import real.telegramer.message.fabric.video.VideoFabric;
-import real.telegramer.message.service.AdminService;
-import real.telegramer.message.service.ChatService;
+import real.telegramer.service.AdminService;
+import real.telegramer.service.ChatService;
 
 import java.util.ArrayList;
 import java.util.List;
