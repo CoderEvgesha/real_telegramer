@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
+import real.telegramer.db.repository.MessageRepository;
 import real.telegramer.message.dictionary.Commands;
 import real.telegramer.message.dictionary.buttons.menu.*;
 import real.telegramer.message.fabric.photo.PhotoFabric;
@@ -23,17 +24,20 @@ public class AnswerFabric {
     private final VideoFabric videoFabric;
     private final ChatService chatService;
     private final AdminService adminService;
+    private final MessageRepository messageRepository;
 
     public AnswerFabric(@Autowired PhotoFabric photoFabric,
                         @Autowired TextFabric textFabric,
                         @Autowired VideoFabric videoFabric,
                         @Autowired ChatService chatService,
-                        @Autowired AdminService adminService) {
+                        @Autowired AdminService adminService,
+                        @Autowired MessageRepository messageRepository) {
         this.photoFabric = photoFabric;
         this.textFabric = textFabric;
         this.videoFabric = videoFabric;
         this.chatService = chatService;
         this.adminService = adminService;
+        this.messageRepository = messageRepository;
     }
 
     public Object createAnswer(Message message) {
@@ -111,13 +115,15 @@ public class AnswerFabric {
     }
 
     private Object createMessageForNotification(Long chatId, User from, String text) {
-        String section = chatService.getBackServiceForCurrentUser(chatId).getInformationAboutSection();
         Long idAdminChat = adminService.getChatId();
+        String section = chatService.getBackServiceForCurrentUser(chatId).getInformationAboutSection();
+        messageRepository.save(new real.telegramer.db.model.Message(text, from.getUserName(), chatId));
         return textFabric.createNotificationForAdmin(idAdminChat, from, text, section);
     }
 
-    private Object createMessageForUnknownNotification(User from, String text) {
+    private Object createMessageForUnknownNotification(User from, String text, Long chatId) {
         Long idAdminChat = adminService.getChatId();
+        messageRepository.save(new real.telegramer.db.model.Message(text, from.getUserName(), chatId));
         return textFabric.createNotificationForAdmin(idAdminChat, from, text);
     }
 
@@ -132,7 +138,7 @@ public class AnswerFabric {
 
     private Object createAnswerForUnknownText(String text, Long chatId, User from) {
         List list = new ArrayList();
-        list.add(createMessageForUnknownNotification(from, text));
+        list.add(createMessageForUnknownNotification(from, text, chatId));
         list.add(textFabric.createAnswerForUnknownText(chatId));
         return list;
     }

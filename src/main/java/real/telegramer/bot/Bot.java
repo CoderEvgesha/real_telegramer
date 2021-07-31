@@ -7,6 +7,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.*;
 import org.telegram.telegrambots.meta.api.objects.*;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
+import real.telegramer.db.model.User;
+import real.telegramer.db.repository.UserRepository;
 import real.telegramer.message.fabric.AnswerFabric;
 import real.telegramer.message.model.video.VideoMessage;
 
@@ -22,6 +24,7 @@ public class Bot extends TelegramLongPollingBot {
     private String token;
 
     private final AnswerFabric answerFabric;
+    private final UserRepository userRepository;
 
     @Override
     public String getBotUsername() {
@@ -33,14 +36,17 @@ public class Bot extends TelegramLongPollingBot {
         return token;
     }
 
-    public Bot(@Autowired AnswerFabric answerFabric) {
+    public Bot(@Autowired AnswerFabric answerFabric,
+               @Autowired UserRepository userRepository) {
         this.answerFabric = answerFabric;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         var msg = update.getMessage();
         if (msg != null) {
+            saveInformationAboutUser(msg);
             if (msg.getText() != null) {
                 var answer = answerFabric.createAnswer(msg);
                 if (answer != null) {
@@ -48,6 +54,13 @@ public class Bot extends TelegramLongPollingBot {
                 }
             }
         }
+    }
+
+    private void saveInformationAboutUser(Message msg) {
+        Long chatId = msg.getChatId();
+        Long userId = msg.getFrom().getId();
+        String username = msg.getFrom().getUserName();
+        userRepository.save(new User(userId, chatId, username));
     }
 
     private void sendMessage(Object message) {
