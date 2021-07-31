@@ -10,8 +10,7 @@ import real.telegramer.message.fabric.photo.PhotoFabric;
 import real.telegramer.message.fabric.text.TextFabric;
 import real.telegramer.message.fabric.video.VideoFabric;
 import real.telegramer.message.service.AdminService;
-import real.telegramer.message.service.BackService;
-import real.telegramer.message.service.OrderService;
+import real.telegramer.message.service.ChatService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +21,18 @@ public class AnswerFabric {
     private final TextFabric textFabric;
     private final PhotoFabric photoFabric;
     private final VideoFabric videoFabric;
-    private final BackService backService;
-    private final OrderService orderService;
+    private final ChatService chatService;
     private final AdminService adminService;
 
     public AnswerFabric(@Autowired PhotoFabric photoFabric,
                         @Autowired TextFabric textFabric,
                         @Autowired VideoFabric videoFabric,
-                        @Autowired BackService backService,
-                        @Autowired OrderService orderService,
+                        @Autowired ChatService chatService,
                         @Autowired AdminService adminService) {
         this.photoFabric = photoFabric;
         this.textFabric = textFabric;
         this.videoFabric = videoFabric;
-        this.backService = backService;
-        this.orderService = orderService;
+        this.chatService = chatService;
         this.adminService = adminService;
     }
 
@@ -45,7 +41,7 @@ public class AnswerFabric {
         var chatId = message.getChatId();
         var text = message.getText();
         var from = message.getFrom();
-        if (orderService.isOrder()) {
+        if (chatService.getOrderServiceForCurrentUser(chatId).isOrder()) {
             return createAnswerForOrderText(text, chatId, from);
         }
         var answer = createAnswer(text, chatId);
@@ -58,12 +54,12 @@ public class AnswerFabric {
     public Object createAnswer(String text, Long chatId) {
         var command = Commands.fromValue(text);
         if (command.isPresent()) {
-            backService.manageStart();
+            chatService.getBackServiceForCurrentUser(chatId).manageStart();
             return createAnswerForStart(command.get(), chatId);
         }
         var mainMenu = MainMenu.fromValue(text);
         if (mainMenu.isPresent()) {
-            backService.manageTransition(text);
+            chatService.getBackServiceForCurrentUser(chatId).manageTransition(text);
             return createAnswerForMainMenu(mainMenu.get(), chatId);
         }
         var aboutUsMenu = AboutUsMenu.fromValue(text);
@@ -75,47 +71,47 @@ public class AnswerFabric {
             var service = servicesMenu.get();
             if (service != ServicesMenu.EDUCATION
                     && service != ServicesMenu.PROJECT_BY_KEY) {
-                backService.manageTransition(text);
+                chatService.getBackServiceForCurrentUser(chatId).manageTransition(text);
             }
             return createAnswerForServicesMenu(service, chatId);
         }
         var orderMenu = OrderMenu.fromValue(text);
         if (orderMenu.isPresent()) {
-            backService.manageTransition(text);
+            chatService.getBackServiceForCurrentUser(chatId).manageTransition(text);
             return createAnswerForOrderMenu(orderMenu.get(), chatId);
         }
         var orderCommunicationMenu = OrderCommunicationMenu.fromValue(text);
         if (orderCommunicationMenu.isPresent()) {
             var orderCommand = orderCommunicationMenu.get();
             if (orderCommand == OrderCommunicationMenu.CALL_ME) {
-                orderService.setOrder();
+                chatService.getOrderServiceForCurrentUser(chatId).setOrder();
             }
-            backService.manageTransition(text);
+            chatService.getBackServiceForCurrentUser(chatId).manageTransition(text);
             return createAnswerForOrderCommunicationMenu(orderCommand, chatId);
         }
         var writeMenu = WriteMenu.fromValue(text);
         if (writeMenu.isPresent()) {
             var write = writeMenu.get();
             if (!write.equals(WriteMenu.OK)) {
-                backService.manageTransition(text);
+                chatService.getBackServiceForCurrentUser(chatId).manageTransition(text);
             }
             return createAnswerForWriteMenu(writeMenu.get(), chatId);
         }
         var hardMenu = HardMenu.fromValue(text);
         if (hardMenu.isPresent()) {
-            orderService.setOrder();
-            backService.manageTransition(text);
+            chatService.getOrderServiceForCurrentUser(chatId).setOrder();
+            chatService.getBackServiceForCurrentUser(chatId).manageTransition(text);
             return createAnswerForHardMenu(hardMenu.get(), chatId);
         }
         var backMenu = BackMenu.fromValue(text);
         if (backMenu.isPresent()) {
-            return createAnswer(backService.manageBack(), chatId);
+            return createAnswer(chatService.getBackServiceForCurrentUser(chatId).manageBack(), chatId);
         }
         return null;
     }
 
-    private Object createMessageForNotification(User from, String text) {
-        String section = backService.getInformationAboutSection();
+    private Object createMessageForNotification(Long chatId, User from, String text) {
+        String section = chatService.getBackServiceForCurrentUser(chatId).getInformationAboutSection();
         Long idAdminChat = adminService.getChatId();
         return textFabric.createNotificationForAdmin(idAdminChat, from, text, section);
     }
@@ -127,10 +123,10 @@ public class AnswerFabric {
 
     private List<Object> createAnswerForOrderText(String text, Long chatId, User from) {
         List list = new ArrayList();
-        list.add(createMessageForNotification(from, text));
+        list.add(createMessageForNotification(chatId, from, text));
         list.add(textFabric.createAnswerForOrderText(chatId));
         list.add(createAnswer(Commands.START.getText(), chatId));
-        orderService.sendOrder();
+        chatService.getOrderServiceForCurrentUser(chatId).sendOrder();
         return list;
     }
 
