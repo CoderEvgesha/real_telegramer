@@ -46,7 +46,11 @@ public class AnswerFabric {
         var text = message.getText();
         var from = message.getFrom();
         if (chatService.getOrderServiceForCurrentUser(chatId).isOrder()) {
-            return createAnswerForOrderText(text, chatId, from);
+            if (text.equals(BackMenu.BACK.getText())) {
+                chatService.getOrderServiceForCurrentUser(chatId).sendOrder();
+            } else {
+                return createAnswerForOrderText(text, chatId, from);
+            }
         }
         var answer = createAnswer(text, chatId);
         if (answer == null) {
