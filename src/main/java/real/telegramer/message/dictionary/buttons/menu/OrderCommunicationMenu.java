@@ -6,8 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum OrderCommunicationMenu {
-    WRITE_ME("Мне удобней общаться письменно"),
-    CALL_ME("Хотел бы созвониться");
+    WRITE_ME("Общаться письменно"),
+    CALL_ME("Запросить звонок");
 
     private final String text;
 

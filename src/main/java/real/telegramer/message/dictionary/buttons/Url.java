@@ -9,6 +9,7 @@ public enum Url {
     SEE("Посмотреть"),
     OPEN_FULL_VIDEO("Посмотреть полное видео на Youtube"),
     OPEN_FULL_PRESENTATION("Открыть презентацию"),
+    READ_THE_INSTRUCTION("Инструкция по взаимодействию с ботом"),
     WRITE("Отправить сообщение");
 
     private final String text;

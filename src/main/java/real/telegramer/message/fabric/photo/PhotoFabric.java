@@ -28,7 +28,8 @@ public class PhotoFabric {
 
     public SendPhoto createAnswerForMain(Long chatId) {
         return photoMessage.createPhotoMessage(chatId, Text.WELCOME.getText(),
-                fileFabric.createPhotoForMain(), InterfaceFabric.getButtonsForMainMenu());
+                fileFabric.createPhotoForMain(),
+                new UrlData(Url.READ_THE_INSTRUCTION.getText(), urlFabric.instruction));
     }
 
     public SendPhoto createAnswerForProjects(Long chatId) {
@@ -55,5 +56,34 @@ public class PhotoFabric {
     public SendPhoto createAnswerForDesign(Long chatId) {
         return photoMessage.createPhotoMessage(chatId, fileFabric.createDocForDesign(),
                 new UrlData(Url.OPEN_FULL_PRESENTATION.getText(), urlFabric.presentation));
+    }
+
+    public SendPhoto createAnswerForHard(Long chatId) {
+        return photoMessage.createPhotoMessage(chatId, Text.HARD.getText(),
+                fileFabric.createPhotoForHelp(),
+                InterfaceFabric.getButtonsForHardMenu());
+    }
+
+    public SendPhoto createAnswerForBots(Long chatId) {
+        return photoMessage.createPhotoMessage(chatId, Text.BOTS.getText(),
+                fileFabric.createPhotoForBot(), InterfaceFabric.getButtonsForServicesOrderMenu());
+    }
+
+    public SendPhoto createAnswerForFeedback(Long chatId) {
+        return photoMessage.createPhotoMessage(chatId, Text.FEEDBACK.getText(),
+                fileFabric.createPhotoForFeedback(),
+                new UrlData(Url.SEE.getText(), urlFabric.feedback));
+    }
+
+    public SendPhoto createAnswerForProjectsByKey(Long chatId) {
+        return photoMessage.createPhotoMessage(chatId, Text.PROJECTS_BY_KEY.getText(),
+                fileFabric.createPhotoForProjectsByKey(),
+                new UrlData(Url.SEE.getText(), urlFabric.projectsByKey));
+    }
+
+    public SendPhoto createAnswerForEducation(Long chatId) {
+        return photoMessage.createPhotoMessage(chatId, Text.EDUCATION.getText(),
+                fileFabric.createPhotoForEducation(),
+                new UrlData(Url.SEE.getText(), urlFabric.education));
     }
 }

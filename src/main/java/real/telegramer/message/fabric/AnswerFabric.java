@@ -46,7 +46,7 @@ public class AnswerFabric {
         var text = message.getText();
         var from = message.getFrom();
         if (chatService.getOrderServiceForCurrentUser(chatId).isOrder()) {
-            if (text.equals(BackMenu.BACK.getText())) {
+            if (text.equals(BackMenu.BACK.getText()) || text.equals(Commands.START.getText())) {
                 chatService.getOrderServiceForCurrentUser(chatId).sendOrder();
             } else {
                 return createAnswerForOrderText(text, chatId, from);
@@ -156,7 +156,7 @@ public class AnswerFabric {
 
     private Object createAnswerForWriteMenu(WriteMenu writeMenu, Long chatId) {
         return switch (writeMenu) {
-            case HARD -> textFabric.createAnswerForHard(chatId);
+            case HARD -> photoFabric.createAnswerForHard(chatId);
             case OK -> textFabric.createAnswerForOk(chatId);
         };
     }
@@ -169,10 +169,17 @@ public class AnswerFabric {
     }
 
     private Object createAnswerForStart(Commands command, Long chatId) {
-        if (command == Commands.START) {
-            return photoFabric.createAnswerForMain(chatId);
-        }
-        return null;
+        return switch (command) {
+            case START -> createAnswerForMain(chatId);
+            case SECOND_START -> textFabric.createAnswerForMain(chatId);
+        };
+    }
+
+    private Object createAnswerForMain(Long chatId) {
+        List list = new ArrayList();
+        list.add(photoFabric.createAnswerForMain(chatId));
+        list.add(textFabric.createAnswerForMain(chatId));
+        return list;
     }
 
     private Object createAnswerForMainMenu(MainMenu mainMenu, Long chatId) {
@@ -193,7 +200,7 @@ public class AnswerFabric {
 
     private Object createAnswerForAboutUsMenu(AboutUsMenu aboutUsMenu, Long chatId) {
         return switch (aboutUsMenu) {
-            case FEEDBACK -> textFabric.createAnswerForFeedback(chatId);
+            case FEEDBACK -> photoFabric.createAnswerForFeedback(chatId);
             case TEAM -> textFabric.createAnswerForTeam(chatId);
             case PROJECTS -> photoFabric.createAnswerForProjects(chatId);
         };
@@ -201,11 +208,11 @@ public class AnswerFabric {
 
     private Object createAnswerForServicesMenu(ServicesMenu servicesMenu, Long chatId) {
         return switch (servicesMenu) {
-            case EDUCATION -> textFabric.createAnswerForEducation(chatId);
-            case PROJECT_BY_KEY -> textFabric.createAnswerForProjectsByKey(chatId);
+            case EDUCATION -> photoFabric.createAnswerForEducation(chatId);
+            case PROJECT_BY_KEY -> photoFabric.createAnswerForProjectsByKey(chatId);
             case DESIGN -> createAnswerForDesignInServiceMenu(chatId);
             case OTHER -> photoFabric.createAnswerForOther(chatId);
-            case BOTS -> textFabric.createAnswerForBots(chatId);
+            case BOTS -> photoFabric.createAnswerForBots(chatId);
         };
     }
 

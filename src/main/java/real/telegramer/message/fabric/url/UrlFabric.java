@@ -28,4 +28,7 @@ public class UrlFabric {
 
     @Value("${presentation.link}")
     public String presentation;
+
+    @Value("${instruction.link}")
+    public String instruction;
 }

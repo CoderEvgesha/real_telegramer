@@ -5,6 +5,7 @@ import java.util.Optional;
 
 public enum Commands {
     START("/start"),
+    SECOND_START("")
     ;
 
     private final String text;

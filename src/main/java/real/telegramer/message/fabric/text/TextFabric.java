@@ -24,28 +24,13 @@ public class TextFabric {
         this.textMessage = new TextMessage();
     }
 
-    public SendMessage createAnswerForFeedback(Long chatId) {
-        return textMessage.createTextMessage(chatId, Text.FEEDBACK.getText(),
-                new UrlData(Url.SEE.getText(), urlFabric.feedback));
-    }
-
     public SendMessage createAnswerForTeam(Long chatId) {
         return textMessage.createTextMessage(chatId, urlFabric.team);
-    }
-
-    public SendMessage createAnswerForEducation(Long chatId) {
-        return textMessage.createTextMessage(chatId, Text.EDUCATION.getText(),
-                new UrlData(Url.SEE.getText(), urlFabric.education));
     }
 
     public SendMessage createAnswerForProjectsByKey(Long chatId) {
         return textMessage.createTextMessage(chatId, Text.PROJECTS_BY_KEY.getText(),
                 new UrlData(Url.SEE.getText(), urlFabric.projectsByKey));
-    }
-
-    public SendMessage createAnswerForBots(Long chatId) {
-        return textMessage.createTextMessage(chatId, Text.BOTS.getText(),
-                InterfaceFabric.getButtonsForServicesOrderMenu());
     }
 
     public SendMessage createAnswerForOrder(Long chatId) {
@@ -56,11 +41,6 @@ public class TextFabric {
     public SendMessage createAnswerForWriteMe(Long chatId) {
         return textMessage.createTextMessage(chatId, Text.WRITE_ME.getText(),
                 InterfaceFabric.getButtonsForWriteMenu());
-    }
-
-    public SendMessage createAnswerForHard(Long chatId) {
-        return textMessage.createTextMessage(chatId, Text.HARD.getText(),
-                InterfaceFabric.getButtonsForHardMenu());
     }
 
     public SendMessage createAnswerForOk(Long chatId) {
@@ -111,5 +91,10 @@ public class TextFabric {
             fullMessage = String.format(Text.UNKNOWN_NOTIFICATION.getText(), username, text);
         }
         return textMessage.createTextMessageWithoutMarkdown(chatId, fullMessage);
+    }
+
+    public SendMessage createAnswerForMain(Long chatId) {
+        return textMessage.createTextMessage(chatId, Text.CHOOSE_OPTION.getText(),
+                InterfaceFabric.getButtonsForMainMenu());
     }
 }

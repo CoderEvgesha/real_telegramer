@@ -24,6 +24,41 @@ public class FileFabric {
     @Value("${photo.other}")
     private String other;
 
+    @Value("${photo.bot}")
+    private String bot;
+
+    @Value("${photo.help}")
+    private String help;
+
+    @Value("${photo.feedback}")
+    private String feedback;
+
+    @Value("${photo.by.key}")
+    private String projectsByKey;
+
+    @Value("${photo.education}")
+    private String education;
+
+    public InputFile createPhotoForEducation() {
+        return readFromFile(education);
+    }
+
+    public InputFile createPhotoForProjectsByKey() {
+        return readFromFile(projectsByKey);
+    }
+
+    public InputFile createPhotoForFeedback() {
+        return readFromFile(feedback);
+    }
+
+    public InputFile createPhotoForBot() {
+        return readFromFile(bot);
+    }
+
+    public InputFile createPhotoForHelp() {
+        return readFromFile(help);
+    }
+
     public InputFile createPhotoForMain() {
         return readFromFile(main);
     }

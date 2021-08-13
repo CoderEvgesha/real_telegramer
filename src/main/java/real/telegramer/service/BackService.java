@@ -30,9 +30,10 @@ public class BackService {
     public String manageBack() {
         isAddCommand = false;
         if (previousCommands.size() > 1) {
-            return previousCommands.remove(previousCommands.size() - 2);
+            previousCommands.remove(previousCommands.size() - 1);
+            return previousCommands.get(previousCommands.size() - 1);
         } else {
-            return Commands.START.getText();
+            return Commands.SECOND_START.getText();
         }
     }
 

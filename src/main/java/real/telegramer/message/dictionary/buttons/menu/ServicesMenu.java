@@ -9,7 +9,7 @@ public enum ServicesMenu {
     EDUCATION("Обучение"),
     PROJECT_BY_KEY("Проект под ключ"),
     DESIGN("Оформление"),
-    OTHER("Другое"),
+    OTHER("Другие услуги"),
     BOTS("Создание Телеграм-ботов");
 
     private final String text;
