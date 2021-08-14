@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public enum Url {
     SEE("Посмотреть"),
+    READ_THE_ARTICLE("Узнать подробнее"),
     OPEN_FULL_VIDEO("Посмотреть полное видео на Youtube"),
     OPEN_FULL_PRESENTATION("Открыть презентацию"),
     READ_THE_INSTRUCTION("Инструкция по взаимодействию с ботом"),

@@ -37,15 +37,15 @@ public enum Text {
             "◼️ [Создание воронки продаж в ботах и каналах](https://telegra.ph/Voronki-prodazh-v-botah-i-kanalah-08-13) \n" +
             "◼️ [Личные консультации и встречи в Москве](https://telegra.ph/Lichnye-konsultacii-i-vstrechi-v-Moskve-08-13) \n" +
             "◼️ [Создание рекламных роликов](https://telegra.ph/Sozdanie-prodayushchih-reklamnyh-rolikov-08-13)\n" +
-            "◼️ [Исследование рынка]()\n" +
-            "◼️ Исследование целевой аудитории\n" +
-            "◼️ Анализ канала\n" +
-            "◼️ Продвижение в Telegram каналах\n" +
-            "◼️ Таргетированная реклама\n" +
-            "◼️ Реклама у блогеров\n" +
-            "◼️ Чистка канала от ботов\n" +
-            "◼️ Борьба с мошенниками\n" +
-            "◼️ Запуск инфопродукта\n"),
+            "◼️ [Исследование рынка](https://telegra.ph/Issledovanie-rynka-gotovim-ploshchadku-dlya-prodvizheniya-produkta-08-14)\n" +
+            "◼️ [Исследование целевой аудитории](https://telegra.ph/Izuchaem-celevuyu-auditoriyu-08-14)\n" +
+            "◼️ [Анализ канала](https://telegra.ph/Analiz-kanala-kogda-i-zachem-on-nuzhen-08-14)\n" +
+            "◼️ [Продвижение в Telegram каналах](https://telegra.ph/Prodvizhenie-v-Telegram-kanalah-08-14)\n" +
+            "◼️ [Таргетированная реклама](https://telegra.ph/Targetirovannaya-reklama-08-14)\n" +
+            "◼️ [Реклама у блогеров](https://telegra.ph/Reklama-u-blogerov-08-14)\n" +
+            "◼️ [Чистка канала от ботов](https://telegra.ph/Ochistka-kanala-ot-botov-08-14)\n" +
+            "◼️ [Борьба с мошенниками](https://telegra.ph/Moshenniki-v-Telegram-chem-opasny-i-kak-s-nimi-borotsya-08-14)\n" +
+            "◼️ [Запуск инфопродукта](https://telegra.ph/Zapusk-infoprodukta-08-14)\n"),
     NOT_KNOW("Простите, наш бот еще не умеет отвечать на такой запрос. Мы доработаем :)" +
             "\nНа всякий случай переслали ваш запрос менеджеру."),
     NOTIFICATION_ANONYMOUS("Пользователь без ника оставил следующее сообщение в разделе %s: %s"),

@@ -218,8 +218,15 @@ public class AnswerFabric {
             case PROJECT_BY_KEY -> photoFabric.createAnswerForProjectsByKey(chatId);
             case DESIGN -> createAnswerForDesignInServiceMenu(chatId);
             case OTHER -> photoFabric.createAnswerForOther(chatId);
-            case BOTS -> photoFabric.createAnswerForBots(chatId);
+            case BOTS -> createAnswerForBots(chatId);
         };
+    }
+
+    private Object createAnswerForBots(Long chatId) {
+        List list = new ArrayList<>();
+        list.add(photoFabric.createAnswerForBots(chatId));
+        list.add(textFabric.createAnswerForBots(chatId));
+        return list;
     }
 
     private Object createAnswerForDesignInServiceMenu(Long chatId) {

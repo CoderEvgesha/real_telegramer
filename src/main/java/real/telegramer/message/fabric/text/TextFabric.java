@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.User;
-import real.telegramer.db.model.Message;
-import real.telegramer.db.repository.MessageRepository;
 import real.telegramer.message.dictionary.Text;
 import real.telegramer.message.dictionary.buttons.Url;
 import real.telegramer.message.fabric.buttons.InterfaceFabric;
@@ -100,5 +98,10 @@ public class TextFabric {
 
     public SendMessage createMessageForMailing(Long chatId, String text) {
         return textMessage.createTextMessage(chatId, text);
+    }
+
+    public SendMessage createAnswerForBots(Long chatId) {
+        return textMessage.createTextMessage(chatId, Text.CHOOSE_OPTION.getText(),
+                InterfaceFabric.getButtonsForServicesOrderMenu());
     }
 }
