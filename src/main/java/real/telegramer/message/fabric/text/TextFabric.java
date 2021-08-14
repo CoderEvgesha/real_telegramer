@@ -97,4 +97,8 @@ public class TextFabric {
         return textMessage.createTextMessage(chatId, Text.CHOOSE_OPTION.getText(),
                 InterfaceFabric.getButtonsForMainMenu());
     }
+
+    public SendMessage createMessageForMailing(Long chatId, String text) {
+        return textMessage.createTextMessage(chatId, text);
+    }
 }

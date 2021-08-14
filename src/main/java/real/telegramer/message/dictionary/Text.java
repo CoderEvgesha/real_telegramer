@@ -37,7 +37,7 @@ public enum Text {
             "◼️ [Создание воронки продаж в ботах и каналах](https://telegra.ph/Voronki-prodazh-v-botah-i-kanalah-08-13) \n" +
             "◼️ [Личные консультации и встречи в Москве](https://telegra.ph/Lichnye-konsultacii-i-vstrechi-v-Moskve-08-13) \n" +
             "◼️ [Создание рекламных роликов](https://telegra.ph/Sozdanie-prodayushchih-reklamnyh-rolikov-08-13)\n" +
-            "◼️ Исследование рынка\n" +
+            "◼️ [Исследование рынка]()\n" +
             "◼️ Исследование целевой аудитории\n" +
             "◼️ Анализ канала\n" +
             "◼️ Продвижение в Telegram каналах\n" +

@@ -12,6 +12,7 @@ import real.telegramer.message.fabric.text.TextFabric;
 import real.telegramer.message.fabric.video.VideoFabric;
 import real.telegramer.service.AdminService;
 import real.telegramer.service.ChatService;
+import real.telegramer.service.SenderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,23 +26,28 @@ public class AnswerFabric {
     private final ChatService chatService;
     private final AdminService adminService;
     private final MessageRepository messageRepository;
+    private final SenderService senderService;
 
     public AnswerFabric(@Autowired PhotoFabric photoFabric,
                         @Autowired TextFabric textFabric,
-                        @Autowired VideoFabric videoFabric,
                         @Autowired ChatService chatService,
+                        @Autowired VideoFabric videoFabric,
                         @Autowired AdminService adminService,
-                        @Autowired MessageRepository messageRepository) {
+                        @Autowired MessageRepository messageRepository,
+                        @Autowired SenderService senderService) {
         this.photoFabric = photoFabric;
         this.textFabric = textFabric;
-        this.videoFabric = videoFabric;
         this.chatService = chatService;
         this.adminService = adminService;
+        this.videoFabric = videoFabric;
         this.messageRepository = messageRepository;
+        this.senderService = senderService;
     }
 
     public Object createAnswer(Message message) {
         if (!adminService.process(message)) return null;
+        List mailing = senderService.process(message);
+        if (mailing.size() > 0) return mailing;
         var chatId = message.getChatId();
         var text = message.getText();
         var from = message.getFrom();
