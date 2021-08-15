@@ -6,8 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum WriteMenu {
-    HARD("Трудности с описанием задачи"),
-    OK("Ок");
+    HARD("Трудности с постановкой задачи \uD83E\uDDD0"),
+    OK("Ок \uD83D\uDC4C");
 
     private final String text;
 

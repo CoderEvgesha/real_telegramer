@@ -6,11 +6,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum ServicesMenu {
-    EDUCATION("Обучение"),
-    PROJECT_BY_KEY("Проект под ключ"),
-    DESIGN("Оформление"),
-    OTHER("Другие услуги"),
-    BOTS("Создание Телеграм-ботов");
+    EDUCATION("Обучение \uD83D\uDD8A"),
+    PROJECT_BY_KEY("Проект под ключ \uD83D\uDDDD"),
+    DESIGN("Оформление \uD83C\uDFA8"),
+    OTHER("Другие услуги \uD83D\uDCDC"),
+    BOTS("Разработка Telegram-ботов \uD83D\uDD27");
 
     private final String text;
 

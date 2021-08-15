@@ -36,7 +36,7 @@ bootRun {
 
 bootJar {
     dependsOn jacocoTestReport
-    dependsOn spotbugsMain
+//    dependsOn spotbugsMain
 }
 
 jacocoTestReport {

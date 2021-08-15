@@ -6,9 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum MainMenu {
-    SEND_LETTER("Связаться с Настоящим Телеграмщиком"),
-    SERVICES("Услуги"),
-    ABOUT_US("О нас");
+    SEND_LETTER("Связаться с экспертом \uD83E\uDDD4"),
+    SERVICES("Услуги \uD83E\uDDFE"),
+    ABOUT_US("О нас \uD83D\uDCBB");
 
     private final String text;
 

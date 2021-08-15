@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum BackMenu {
-    BACK("Назад");
+    BACK("⬅️ Назад");
 
     private final String text;
 

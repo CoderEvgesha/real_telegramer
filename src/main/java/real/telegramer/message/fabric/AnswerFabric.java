@@ -141,7 +141,7 @@ public class AnswerFabric {
         List list = new ArrayList();
         list.add(createMessageForNotification(chatId, from, text));
         list.add(textFabric.createAnswerForOrderText(chatId));
-        list.add(createAnswer(Commands.START.getText(), chatId));
+        list.add(createAnswer(Commands.SECOND_START.getText(), chatId));
         chatService.getOrderServiceForCurrentUser(chatId).sendOrder();
         return list;
     }
@@ -238,8 +238,15 @@ public class AnswerFabric {
 
     private Object createAnswerForOrderCommunicationMenu(OrderCommunicationMenu orderCommunicationMenu, Long chatId) {
         return switch (orderCommunicationMenu) {
-            case WRITE_ME -> textFabric.createAnswerForWriteMe(chatId);
+            case WRITE_ME -> createAnswerForWriteMe(chatId);
             case CALL_ME -> textFabric.createAnswerForRecallMe(chatId);
         };
+    }
+
+    private Object createAnswerForWriteMe(Long chatId) {
+        List list = new ArrayList<>();
+        list.add(textFabric.createAnswerForWriteMe(chatId));
+        list.add(textFabric.createAnswerForWriteMeWithKeyBoard(chatId));
+        return list;
     }
 }

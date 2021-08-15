@@ -20,7 +20,7 @@ public class UrlFabric {
     @Value("${details.telegraph}")
     public String details;
 
-    @Value("${team.link}")
+    @Value("${manager.link}")
     public String write;
 
     @Value("${about.us.link}")
@@ -29,9 +29,9 @@ public class UrlFabric {
     @Value("${presentation.link}")
     public String presentation;
 
-    @Value("${instruction.link}")
-    public String instruction;
-
     @Value("${bots.link}")
     public String bot;
+
+    @Value("${instruction.link}")
+    public String instruction;
 }

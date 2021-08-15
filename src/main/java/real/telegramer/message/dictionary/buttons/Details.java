@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum Details {
-    DETAILS("Подробнее");
+    DETAILS("Подробнее ➡️");
 
     private final String text;
 

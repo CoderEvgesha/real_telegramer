@@ -28,8 +28,7 @@ public class PhotoFabric {
 
     public SendPhoto createAnswerForMain(Long chatId) {
         return photoMessage.createPhotoMessage(chatId, Text.WELCOME.getText(),
-                fileFabric.createPhotoForMain(),
-                new UrlData(Url.READ_THE_INSTRUCTION.getText(), urlFabric.instruction));
+                fileFabric.createPhotoForMain());
     }
 
     public SendPhoto createAnswerForProjects(Long chatId) {
@@ -48,13 +47,9 @@ public class PhotoFabric {
                 fileFabric.createPhotoForOther(), InterfaceFabric.getButtonsForServicesOrderMenu());
     }
 
-    public SendPhoto createAnswerForAboutUs(Long chatId) {
-        return photoMessage.createPhotoMessage(chatId, Text.DESIGN.getText(),
-                fileFabric.createVideoAboutUs(), new UrlData(Url.SEE.getText(), urlFabric.video));
-    }
-
     public SendPhoto createAnswerForDesign(Long chatId) {
-        return photoMessage.createPhotoMessage(chatId, fileFabric.createDocForDesign(),
+        return photoMessage.createPhotoMessage(chatId, Text.DESIGN.getText(),
+                fileFabric.createDocForDesign(),
                 new UrlData(Url.OPEN_FULL_PRESENTATION.getText(), urlFabric.presentation));
     }
 
@@ -65,7 +60,8 @@ public class PhotoFabric {
     }
 
     public SendPhoto createAnswerForBots(Long chatId) {
-        return photoMessage.createPhotoMessage(chatId, fileFabric.createPhotoForBot(),
+        return photoMessage.createPhotoMessage(chatId,
+                Text.BOTS.getText(), fileFabric.createPhotoForBot(),
                 new UrlData(Url.READ_THE_ARTICLE.getText(), urlFabric.bot));
     }
 

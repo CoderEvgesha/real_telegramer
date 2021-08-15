@@ -6,12 +6,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum Url {
-    SEE("Посмотреть"),
-    READ_THE_ARTICLE("Узнать подробнее"),
-    OPEN_FULL_VIDEO("Посмотреть полное видео на Youtube"),
-    OPEN_FULL_PRESENTATION("Открыть презентацию"),
-    READ_THE_INSTRUCTION("Инструкция по взаимодействию с ботом"),
-    WRITE("Отправить сообщение");
+    SEE("Посмотреть ➡️"),
+    READ_THE_ARTICLE("Прочитать ➡️"),
+    OPEN_FULL_VIDEO("Посмотреть полное видео на Youtube \uD83D\uDCF9"),
+    OPEN_FULL_PRESENTATION("Открыть презентацию ➡️"),
+    READ_THE_INSTRUCTION("Инструкция по составлению ТЗ \uD83D\uDD28"),
+    WRITE("Отправить сообщение \uD83D\uDCEC");
 
     private final String text;
 

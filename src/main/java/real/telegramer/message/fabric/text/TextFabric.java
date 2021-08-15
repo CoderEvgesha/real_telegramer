@@ -23,12 +23,8 @@ public class TextFabric {
     }
 
     public SendMessage createAnswerForTeam(Long chatId) {
-        return textMessage.createTextMessage(chatId, urlFabric.team);
-    }
-
-    public SendMessage createAnswerForProjectsByKey(Long chatId) {
-        return textMessage.createTextMessage(chatId, Text.PROJECTS_BY_KEY.getText(),
-                new UrlData(Url.SEE.getText(), urlFabric.projectsByKey));
+        return textMessage.createTextMessage(chatId,
+                String.format(Text.TEAM.getText(), urlFabric.team));
     }
 
     public SendMessage createAnswerForOrder(Long chatId) {
@@ -38,6 +34,11 @@ public class TextFabric {
 
     public SendMessage createAnswerForWriteMe(Long chatId) {
         return textMessage.createTextMessage(chatId, Text.WRITE_ME.getText(),
+                new UrlData(Url.READ_THE_INSTRUCTION.getText(), urlFabric.instruction));
+    }
+
+    public SendMessage createAnswerForWriteMeWithKeyBoard(Long chatId) {
+        return textMessage.createTextMessage(chatId, Text.CHOOSE_OPTION.getText(),
                 InterfaceFabric.getButtonsForWriteMenu());
     }
 
@@ -61,7 +62,7 @@ public class TextFabric {
     }
 
     public SendMessage createAnswerForDesign(Long chatId) {
-        return textMessage.createTextMessage(chatId, Text.DESIGN.getText(),
+        return textMessage.createTextMessage(chatId, Text.CHOOSE_OPTION.getText(),
                 InterfaceFabric.getButtonsForServicesOrderMenu());
     }
 

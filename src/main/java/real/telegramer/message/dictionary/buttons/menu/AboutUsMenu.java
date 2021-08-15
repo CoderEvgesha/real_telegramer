@@ -6,9 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum AboutUsMenu {
-    TEAM("Команда"),
-    PROJECTS("Проекты"),
-    FEEDBACK("Отзывы");
+    TEAM("Команда \uD83D\uDC65"),
+    PROJECTS("Проекты \uD83D\uDCDA"),
+    FEEDBACK("Отзывы \uD83D\uDCDD");
 
     private final String text;
 

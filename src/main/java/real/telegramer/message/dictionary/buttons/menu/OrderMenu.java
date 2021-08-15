@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum OrderMenu {
-    ORDER("Заказать");
+    ORDER("Заказать \uD83D\uDCF2");
 
     private final String text;
 

@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum HardMenu {
-    RECALL_ME("Перезвоните мне");
+    RECALL_ME("Перезвоните мне \uD83D\uDCDE");
 
     private final String text;
 

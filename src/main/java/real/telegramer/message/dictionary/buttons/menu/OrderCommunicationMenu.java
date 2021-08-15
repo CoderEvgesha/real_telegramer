@@ -6,8 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum OrderCommunicationMenu {
-    WRITE_ME("Общаться письменно"),
-    CALL_ME("Запросить звонок");
+    WRITE_ME("Общаться письменно \uD83D\uDCDD"),
+    CALL_ME("Запросить звонок \uD83D\uDCF2");;
 
     private final String text;
 
