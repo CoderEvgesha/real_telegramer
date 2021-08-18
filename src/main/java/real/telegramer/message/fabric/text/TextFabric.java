@@ -22,19 +22,13 @@ public class TextFabric {
         this.textMessage = new TextMessage();
     }
 
-    public SendMessage createAnswerForTeam(Long chatId) {
-        return textMessage.createTextMessage(chatId,
-                String.format(Text.TEAM.getText(), urlFabric.team));
-    }
-
     public SendMessage createAnswerForOrder(Long chatId) {
         return textMessage.createTextMessage(chatId, Text.ORDER.getText(),
                 InterfaceFabric.getButtonsForOrderCommunicationMenu());
     }
 
     public SendMessage createAnswerForWriteMe(Long chatId) {
-        return textMessage.createTextMessage(chatId, Text.WRITE_ME.getText(),
-                new UrlData(Url.READ_THE_INSTRUCTION.getText(), urlFabric.instruction));
+        return textMessage.createTextMessage(chatId, Text.WRITE_ME.getText());
     }
 
     public SendMessage createAnswerForWriteMeWithKeyBoard(Long chatId) {

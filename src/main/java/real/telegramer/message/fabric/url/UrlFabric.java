@@ -31,7 +31,4 @@ public class UrlFabric {
 
     @Value("${bots.link}")
     public String bot;
-
-    @Value("${instruction.link}")
-    public String instruction;
 }

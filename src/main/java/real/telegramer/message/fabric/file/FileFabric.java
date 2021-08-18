@@ -39,6 +39,13 @@ public class FileFabric {
     @Value("${photo.education}")
     private String education;
 
+    @Value("${photo.founder}")
+    private String founder;
+
+    public InputFile createPhotoForFounder() {
+        return readFromFile(founder);
+    }
+
     public InputFile createPhotoForEducation() {
         return readFromFile(education);
     }

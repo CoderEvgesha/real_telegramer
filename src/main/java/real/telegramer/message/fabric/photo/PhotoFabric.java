@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import real.telegramer.message.dictionary.Text;
-import real.telegramer.message.dictionary.buttons.Details;
 import real.telegramer.message.dictionary.buttons.Url;
 import real.telegramer.message.fabric.buttons.InterfaceFabric;
 import real.telegramer.message.fabric.file.FileFabric;
@@ -32,9 +31,9 @@ public class PhotoFabric {
     }
 
     public SendPhoto createAnswerForProjects(Long chatId) {
-        return photoMessage.createPhotoMessage(chatId, Text.PROJECTS.getText(),
+        return photoMessage.createPhotoMessage(chatId,
                 fileFabric.createPictureProjects(),
-                new UrlData(Details.DETAILS.getText(), urlFabric.details));
+                new UrlData(Url.DETAILS.getText(), urlFabric.details));
     }
 
     public SendPhoto createAnswerForServices(Long chatId) {
@@ -81,5 +80,11 @@ public class PhotoFabric {
         return photoMessage.createPhotoMessage(chatId, Text.EDUCATION.getText(),
                 fileFabric.createPhotoForEducation(),
                 new UrlData(Url.SEE.getText(), urlFabric.education));
+    }
+
+    public SendPhoto createAnswerForTeam(Long chatId) {
+        return photoMessage.createPhotoMessage(chatId,
+                fileFabric.createPhotoForFounder(),
+                new UrlData(Url.DETAILS.getText(), urlFabric.team));
     }
 }

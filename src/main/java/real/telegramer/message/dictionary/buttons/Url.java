@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 
 public enum Url {
     SEE("Посмотреть ➡️"),
+    DETAILS("Подробнее ➡️"),
     OPEN_FEEDBACK_SITE("Перейти на сайт с отзывами ➡️"),
     READ_THE_ARTICLE("Прочитать ➡️"),
     OPEN_FULL_VIDEO("Посмотреть полное видео на Youtube \uD83D\uDCF9"),
     OPEN_FULL_PRESENTATION("Открыть презентацию ➡️"),
-    READ_THE_INSTRUCTION("Инструкция по составлению ТЗ \uD83D\uDD28"),
     WRITE("Отправить сообщение \uD83D\uDCEC");
 
     private final String text;

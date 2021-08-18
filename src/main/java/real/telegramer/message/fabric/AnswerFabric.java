@@ -207,7 +207,7 @@ public class AnswerFabric {
     private Object createAnswerForAboutUsMenu(AboutUsMenu aboutUsMenu, Long chatId) {
         return switch (aboutUsMenu) {
             case FEEDBACK -> photoFabric.createAnswerForFeedback(chatId);
-            case TEAM -> textFabric.createAnswerForTeam(chatId);
+            case TEAM -> photoFabric.createAnswerForTeam(chatId);
             case PROJECTS -> photoFabric.createAnswerForProjects(chatId);
         };
     }
