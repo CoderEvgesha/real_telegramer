@@ -66,9 +66,9 @@ public class PhotoFabric {
     }
 
     public SendPhoto createAnswerForFeedback(Long chatId) {
-        return photoMessage.createPhotoMessage(chatId, Text.FEEDBACK.getText(),
+        return photoMessage.createPhotoMessage(chatId,
                 fileFabric.createPhotoForFeedback(),
-                new UrlData(Url.SEE.getText(), urlFabric.feedback));
+                new UrlData(Url.OPEN_FEEDBACK_SITE.getText(), urlFabric.feedback));
     }
 
     public SendPhoto createAnswerForProjectsByKey(Long chatId) {
