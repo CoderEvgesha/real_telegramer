@@ -61,7 +61,7 @@ public class PhotoFabric {
     public SendPhoto createAnswerForBots(Long chatId) {
         return photoMessage.createPhotoMessage(chatId,
                 Text.BOTS.getText(), fileFabric.createPhotoForBot(),
-                new UrlData(Url.READ_THE_ARTICLE.getText(), urlFabric.bot));
+                new UrlData(Url.DETAILS.getText(), urlFabric.bot));
     }
 
     public SendPhoto createAnswerForFeedback(Long chatId) {
