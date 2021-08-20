@@ -10,7 +10,7 @@ public enum Url {
     DETAILS("Подробнее ➡️"),
     OPEN_FEEDBACK_SITE("Перейти на сайт с отзывами ➡️"),
     OPEN_FULL_VIDEO("Посмотреть полное видео на Youtube \uD83D\uDCF9"),
-    OPEN_FULL_PRESENTATION("Открыть презентацию ➡️"),
+    OPEN_FULL_PRESENTATION("Посмотреть работы ➡️"),
     WRITE("Отправить сообщение \uD83D\uDCEC");
 
     private final String text;
