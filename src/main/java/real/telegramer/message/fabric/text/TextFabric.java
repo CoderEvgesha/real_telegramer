@@ -51,7 +51,7 @@ public class TextFabric {
     }
 
     public SendMessage createAnswerForAboutUs(Long chatId) {
-        return textMessage.createTextMessage(chatId, Text.ABOUT_US.getText(),
+        return textMessage.createTextMessage(chatId, Text.CHOOSE_OPTION.getText(),
                 InterfaceFabric.getButtonsForAboutUsMenu());
     }
 
