@@ -28,9 +28,11 @@ public class AdminService {
         final var messageChatId = message.getChatId();
         final var username = message.getFrom().getUserName();
         if (!username.isBlank()) {
-            if (username.equals(formatAdmUsername()) && !chatId.equals(messageChatId)) {
-                chatId = message.getChatId();
-                saveId(chatId);
+            if (username.equals(formatAdmUsername())) {
+                if (!chatId.equals(messageChatId)) {
+                    chatId = message.getChatId();
+                    saveId(chatId);
+                }
                 return false;
             }
         }

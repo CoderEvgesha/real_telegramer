@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public enum AboutUsMenu {
-    TEAM("Об основателе \uD83D\uDC64"),
+    TEAM("О команде \uD83D\uDC65"),
     PROJECTS("Проекты \uD83D\uDCDA"),
     FEEDBACK("Отзывы \uD83D\uDCDD");
 
